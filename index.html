@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inimigo da Indecisão!</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <img src="imagens/WhatsApp Image 2024-08-12 at 17.56.49.jpeg" alt="Inimigo da Indecisão" class="top-image">
+    <div class="content">
+        <div class="input-section">
+            <form id="decisionForm">
+                <label for="qtdeDecisoesInput">
+                    <span class="dot">&#9679;</span> O resultado terá quantas decisões?
+                    <br><small>(Inserir quantidade)</small>
+                </label>
+                <input type="number" id="qtdeDecisoesInput" placeholder="Insira a quantidade">
+
+                <label for="indecisoesInput">
+                    <span class="dot">&#9679;</span> Insira suas indecisões, separadas por vírgula:
+                </label>
+                <textarea id="indecisoesInput" rows="5" placeholder="Digite aqui suas opções..."></textarea>
+
+                <button type="button" id="processButton">Processar</button>
+            </form>
+
+            <div id="result">
+                <ul id="indecisoesList"></ul>
+            </div>
+        </div>
+
+        <div class="image-section">
+            <img src="imagens/WhatsApp Image 2024-08-12 at 18.00.14.jpeg" alt="Matrix" id="matrixImage">
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
