@@ -135,3 +135,17 @@ button:hover {
     color: #ff4500;
     font-size: 1.5em;
 }
+
+.image-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 50%;
+    padding: 100px;
+}
+
+#matrixImage {
+    max-width: 150%;
+    height: auto;
+}
