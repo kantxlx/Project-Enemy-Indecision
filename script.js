@@ -1,81 +1,96 @@
 document.addEventListener('DOMContentLoaded', function () {
 
-    const indecisoesInput = document.getElementById('indecisoesInput');
-    const qtdeDecisoesInput = document.getElementById('qtdeDecisoesInput');
+    const undecisionsInput = document.getElementById('undecisionsInput');
+    const numDecisionsInput = document.getElementById('numDecisionsInput');
     const processButton = document.getElementById('processButton');
-    const indecisoesList = document.getElementById('indecisoesList');
+    const undecisionsList = document.getElementById('undecisionsList');
     const resultModal = document.getElementById('resultModal');
     const countdownDiv = document.getElementById('countdown');
     const retryButton = document.getElementById('retryButton');
     const newDrawButton = document.getElementById('newDrawButton');
-    const inputSection = document.getElementById('inputSection');
 
-    function decidir(indecisoes, qtdeDecisoes) {
-        let result = [];
-        while (qtdeDecisoes > result.length) {
-            const indiceAleatorio = Math.floor(Math.random() * indecisoes.length);
-            const decisaoExiste = result.find((decisao) => indecisoes[indiceAleatorio] === decisao);
-            if (!decisaoExiste) {
-                result.push(indecisoes[indiceAleatorio]);
-            }
+    function decision(undecisions, numDecisions) {
+
+        if (undecisions.length < numDecisions) {
+            return ['Quantidade de decisões não pode ser maior do que a quantidade de indecisões!!!'];
         }
-        return result;
+
+        const selectedDecisions = [];
+
+        while (selectedDecisions.length < numDecisions) {
+            const randomIndex = Math.floor(Math.random() * undecisions.length);
+            const decisionAlreadyExists = selectedDecisions.includes(undecisions[randomIndex]);
+
+            if (decisionAlreadyExists) {
+                continue;
+            }
+
+            selectedDecisions.push(undecisions[randomIndex]);
+
+        }
+
+        return selectedDecisions;
     }
 
-    function updateIndecisoesList(decisoes) {
-        indecisoesList.innerHTML = '';
-        decisoes.forEach(function (item) {
+    function updateUndecisionsList(decisions) {
+        undecisionsList.innerHTML = '';
+
+        decisions.forEach(function (item) {
             const li = document.createElement('li');
             li.textContent = item;
-            indecisoesList.appendChild(li);
+            undecisionsList.appendChild(li);
         });
+
     }
 
-    function startCountdownAndShowResult(decisoes) {
+    function startCountdownAndShowResult(decisions) {
         resultModal.classList.remove('hidden');
+
         let countdown = 3;
+
         countdownDiv.textContent = `Aguarde ${countdown} segundos...`;
+
         const interval = setInterval(() => {
             countdown--;
             countdownDiv.textContent = `Aguarde ${countdown} segundos...`;
             if (countdown <= 0) {
                 clearInterval(interval);
                 countdownDiv.textContent = '';
-                updateIndecisoesList(decisoes);
+                updateUndecisionsList(decisions);
             }
         }, 1000);
     }
 
     function resetPage() {
         resultModal.classList.add('hidden');
-        indecisoesInput.value = '';
-        qtdeDecisoesInput.value = '';
-        indecisoesList.innerHTML = '';
+        undecisionsInput.value = '';
+        numDecisionsInput.value = '';
+        undecisionsList.innerHTML = '';
     }
 
     processButton.addEventListener('click', function () {
-        const indecisoesValue = indecisoesInput.value.trim();
-        const qtdeDecisoesValue = parseInt(qtdeDecisoesInput.value.trim());
+        const undecisionsValue = undecisionsInput.value.trim();
+        const numDecisionsValue = parseInt(numDecisionsInput.value.trim());
 
-        if (indecisoesValue !== '' && !isNaN(qtdeDecisoesValue)) {
-            const indecisoes = indecisoesValue.split(',').map(item => item.trim());
-            const qtdeDecisoes = qtdeDecisoesValue;
+        if (undecisionsValue !== '' && !isNaN(numDecisionsValue)) {
+            const undecisions = undecisionsValue.split(',').map(item => item.trim());
+            const numDecisions = numDecisionsValue;
 
-            const decisoes = decidir(indecisoes, qtdeDecisoes);
-            startCountdownAndShowResult(decisoes);
+            const decisions = decision(undecisions, numDecisions);
+            startCountdownAndShowResult(decisions);
         }
     });
 
     retryButton.addEventListener('click', function () {
-        const indecisoesValue = indecisoesInput.value.trim();
-        const qtdeDecisoesValue = parseInt(qtdeDecisoesInput.value.trim());
+        const undecisionsValue = undecisionsInput.value.trim();
+        const numDecisionsValue = parseInt(numDecisionsInput.value.trim());
 
-        if (indecisoesValue !== '' && !isNaN(qtdeDecisoesValue)) {
-            const indecisoes = indecisoesValue.split(',').map(item => item.trim());
-            const qtdeDecisoes = qtdeDecisoesValue;
+        if (undecisionsValue !== '' && !isNaN(numDecisionsValue)) {
+            const undecisions = undecisionsValue.split(',').map(item => item.trim());
+            const numDecisions = numDecisionsValue;
 
-            const decisoes = decidir(indecisoes, qtdeDecisoes);
-            startCountdownAndShowResult(decisoes);
+            const decisions = decision(undecisions, numDecisions);
+            startCountdownAndShowResult(decisions);
         }
     });
 
