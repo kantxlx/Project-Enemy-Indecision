@@ -1,35 +1,29 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inimigo da Indecisão!</title>
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
     <img src="imagens/WhatsApp Image 2024-08-12 at 17.56.49.jpeg" alt="Inimigo da Indecisão" class="top-image">
     <div class="content">
-        <div class="input-section">
+        <div class="input-section" id="inputSection">
             <form id="decisionForm">
-                <label for="campoQtdeDecisoes">
+                <label for="qtdeDecisoesInput">
                     <span class="dot">&#9679;</span> O resultado terá quantas decisões?
-                    <br><small>(Inserir quantidade)</small>
+                    <br><small>(Quantidade de decisões não pode ser maior do que o número de opções)</small>
                 </label>
-                <input type="number" id="campoQtdeDecisoes" placeholder="Insira a quantidade">
+                <input type="number" id="qtdeDecisoesInput" placeholder="Insira a quantidade">
 
-                <label for="campoIndecisoes">
+                <label for="indecisoesInput">
                     <span class="dot">&#9679;</span> Insira suas indecisões, separadas por vírgula:
                 </label>
-                <textarea id="campoIndecisoes" rows="5" placeholder="Digite aqui suas opções..."></textarea>
+                <textarea id="indecisoesInput" rows="5" placeholder="Digite aqui suas opções..."></textarea>
 
-                <button type="button" id="botaoProcessar">Processar</button>
+                <button type="button" id="processButton">Processar</button>
             </form>
-
-            <div id="result">
-                <ul id="listaIndecisoes"></ul>
-            </div>
         </div>
 
         <div class="image-section">
@@ -37,7 +31,15 @@
         </div>
     </div>
 
+    <div id="resultModal" class="modal hidden">
+        <div class="modal-content">
+            <div id="countdown"></div>
+            <ul id="indecisoesList"></ul>
+            <button id="retryButton">Sortear Novamente</button>
+            <button id="newDrawButton">Novo Sorteio</button>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
-
 </html>
