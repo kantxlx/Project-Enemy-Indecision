@@ -1,65 +1,57 @@
 document.addEventListener('DOMContentLoaded', function () {
 
-    const indecisoesInput = document.getElementById('indecisoesInput');
-    const qtdeDecisoesInput = document.getElementById('qtdeDecisoesInput');
-    const processButton = document.getElementById('processButton');
-    const indecisoesList = document.getElementById('indecisoesList');
+    const campoIndecisoes = document.getElementById('campoIndecisoes');
+    const campoQtdeDecisoes = document.getElementById('campoQtdeDecisoes');
+    const botaoProcessar = document.getElementById('botaoProcessar');
+    const listaIndecisoes = document.getElementById('listaIndecisoes');
 
-    function decidir(indecisoes, qtdeDecisoes) {
+    function escolherDecisoes(indecisoes, qtdeDecisoes) {
 
-        let result = [];
-
-        while (qtdeDecisoes > result.length) {
-            const indiceAleatorio = Math.floor(Math.random() * indecisoes.length);
-            const decisaoExiste = result.find((decisao) => indecisoes[indiceAleatorio] === decisao)
-
-            if (!decisaoExiste) {
-                result.push(indecisoes[indiceAleatorio]);
-            }
+        if (indecisoes.length < qtdeDecisoes) {
+            return ['Quantidade de decisões não pode ser maior do que a quantidade de indecisões!!!'];
         }
 
-        return result;
+        const decisoesSelecionadas = [];
+
+        while (decisoesSelecionadas.length < qtdeDecisoes) {
+            const indiceAleatorio = Math.floor(Math.random() * indecisoes.length);
+            const decisaoJaExiste = decisoesSelecionadas.includes(indecisoes[indiceAleatorio]);
+
+            if (decisaoJaExiste) {
+                continue
+            }
+
+            decisoesSelecionadas.push(indecisoes[indiceAleatorio]);
+        }
+
+        return decisoesSelecionadas;
     }
 
-    function updateIndecisoesList(decisoes) {
-        indecisoesList.innerHTML = '';
+    function atualizarListaDecisoes(decisoes) {
+        listaIndecisoes.innerHTML = '';
 
-        decisoes.forEach(function (item) {
-            const li = document.createElement('li');
-            li.textContent = item;
-            indecisoesList.appendChild(li);
+        decisoes.forEach(function (decisao) {
+            const itemLista = document.createElement('li');
+            itemLista.textContent = decisao;
+            listaIndecisoes.appendChild(itemLista);
         });
     }
 
     let indecisoes = [];
     let qtdeDecisoes = 0;
 
-    processButton.addEventListener('click', function () {
-        const indecisoesValue = indecisoesInput.value.trim();
-        const qtdeDecisoesValue = parseInt(qtdeDecisoesInput.value.trim());
+    botaoProcessar.addEventListener('click', function () {
+        const valorIndecisoes = campoIndecisoes.value.trim();
+        const valorQtdeDecisoes = parseInt(campoQtdeDecisoes.value.trim());
 
-        if (indecisoesValue !== '' && !isNaN(qtdeDecisoesValue)) {
-            indecisoes = indecisoesValue.split(',').map(item => item.trim());
-            qtdeDecisoes = qtdeDecisoesValue;
+        if (valorIndecisoes !== '' && !isNaN(valorQtdeDecisoes)) {
+            indecisoes = valorIndecisoes.split(',').map(item => item.trim());
+            qtdeDecisoes = valorQtdeDecisoes;
 
-            const decisoes = decidir(indecisoes, qtdeDecisoes);
+            const decisoes = escolherDecisoes(indecisoes, qtdeDecisoes);
 
-            updateIndecisoesList(decisoes);
+            atualizarListaDecisoes(decisoes);
         }
     });
 
 });
-
-
-
-
-// for (let i = 0; i < qtdeDecisoes; i++) {
-//     const indiceAleatorio = Math.floor(Math.random() * indecisoes.length);
-//     //console.log(indiceAleatorio)
-//     const decisaoExiste = result.find((decisao) => indecisoes[indiceAleatorio] === decisao)
-
-//     if (!decisaoExiste) {
-//         console.log('chegou aqui')
-//         result.push(indecisoes[indiceAleatorio]);
-//     }
-// }
